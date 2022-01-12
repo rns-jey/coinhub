@@ -3,10 +3,10 @@
     %div{ class: "flex items-center justify-between h-16" }
       %h1{ class:"text-3xl font-bold text-gray-900" } My Portfolio
       %div{ class:"hidden md:block" }
-        = link_to "Add New Coin", new_portfolio_path(:amt => 100), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        = link_to "Add New Coin", new_portfolio_path, class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 
 %main
-  %div{ class:"max-w-7xl mx-auto py-6 sm:px-6 lg:px-8" }
+  %div{ class:"max-w-8xl mx-auto py-6 sm:px-6 lg:px-8" }
     %div{ class:"flex flex-col" }
       %div{ class:"-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8" }
         %div{ class:"py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8" }
@@ -32,6 +32,8 @@
                     Holdings
                   %th{ scope:"col", class:"px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" }
                     PNL
+                  %th{ scope:"col", class:"px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }
+                    Buy/Sell
                   
               %tbody{ class:"bg-white divide-y divide-gray-200" }
                 - if @portfolios
@@ -94,3 +96,6 @@
                             - else
                               %div{ class:"text-right text-sm text-red-800" }
                                 = number_to_currency((crypto[1]["quote"]["USD"]["percent_change_24h"] / 100) * (portfolio.amount * crypto[1]["quote"]["USD"]["price"]))
+                          
+                          %td{ class: "px-6 py-4 whitespace-nowrap text-center text-2xl font-medium" }
+                            = link_to "+", new_transaction_path(:coin => portfolio.symbol), class:"text-indigo-600 hover:text-indigo-900"
