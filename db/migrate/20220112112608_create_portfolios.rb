@@ -5,7 +5,7 @@ class CreatePortfolios < ActiveRecord::Migration[6.0]
       t.string :symbol
       t.string :slug
       t.float :amount
-      t.float :status
+      t.string :status
       t.integer :user_id
       
       t.timestamps

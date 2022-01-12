@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_112608) do
     t.string "symbol"
     t.string "slug"
     t.float "amount"
-    t.float "status"
+    t.string "status"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
