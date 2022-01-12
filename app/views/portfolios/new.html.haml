@@ -1,0 +1,11 @@
+%h1
+  Add New Coin to Portfolio
+
+= form_with model: @portfolio do |form|
+  %div
+    = form.label :name
+    %br/
+    = form.select :name, @cryptos.sort
+
+  %div
+    = form.submit
