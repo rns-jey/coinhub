@@ -1,0 +1,81 @@
+%div{ class:"max-w-xl mx-auto py-6 sm:px-6 lg:px-8" }
+  %div{ class: "bg-white shadow overflow-hidden sm:rounded-lg" }
+    %div{ class: "px-4 py-5 sm:px-6" }
+      %h3{ class: "text-lg leading-6 font-medium text-gray-900" }
+        New Transaction
+
+      %br/
+
+      %div{ class: "flex flex-wrap overflow-hidden" }
+
+        %div{ class: "text-center w-1/2 overflow-hidden" }
+          %span{ class: "sm:ml-3" }
+            = link_to "BUY", new_transaction_path(:coin => @crypto.symbol), class:"inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            
+        %div{ class: "text-center w-1/2 overflow-hidden" }
+          %span{ class: "sm:ml-3" }
+            = link_to "SELL", new_transaction_path(:coin => @crypto.symbol), class:"inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black hover:text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+
+      %br/
+
+      = form_with model: @transaction do |form|
+        = form.text_field :kind, value: @transaction_type
+        = form.text_field :unit_price, value: @price
+        = form.text_field :fee
+        = form.text_field :final_price
+        = form.text_field :user_id, value: current_user.id
+
+        %div
+          = form.label :total_price, "Spend", :class => "block text-sm font-medium text-gray-700"
+          
+          %div{ class: "mt-1 relative rounded-md shadow-sm" }
+
+            = form.text_field :total_price, class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", placeholder: "0.00"
+            
+            %div{ class: "absolute inset-y-0 right-0 flex items-center" }
+              = form.label :currency, :class => "sr-only"
+              = form.select(:currency, ["PHP"], {}, { :class => "focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md" })
+        
+        %div
+          = form.label :amount, "Receive", :class => "block text-sm font-medium text-gray-700"
+
+          %div{ class: "mt-1 relative rounded-md shadow-sm" }
+
+            = form.text_field :amount, class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", placeholder: "0.00"
+            
+            %div{ class: "absolute inset-y-0 right-0 flex items-center" }
+              = form.label :symbol, :class => "sr-only"
+              = form.select(:symbol, ["#{@crypto.symbol}"], {}, { :class => "focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md" })
+      
+        %div{ class: "border-t border-gray-200" }
+          %dl
+            %div{ class: "bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
+              %dt{ class: "text-sm font-medium text-gray-500" }
+                Pay with
+              
+              %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
+                Cash balance: 1000 PHP
+          
+            %div{ class: "bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
+              %dt{ class: "text-sm font-medium text-gray-500" }
+                Price
+              
+              %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
+                1 BTC = 26760.602 PHP
+
+            %div{ class: "bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
+              %dt{ class: "text-sm font-medium text-gray-500" }
+                Fees
+              
+              %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
+                20.00 PHP
+            
+            %div{ class: "bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
+              %dt{ class: "text-sm font-medium text-gray-500" }
+                Total
+              
+              %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
+                1000 PHP
+      
+        = button_tag(type: "submit", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", id: 'validForm') do
+          Confirm

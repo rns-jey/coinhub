@@ -98,4 +98,4 @@
                                 = number_to_currency((crypto[1]["quote"]["USD"]["percent_change_24h"] / 100) * (portfolio.amount * crypto[1]["quote"]["USD"]["price"]))
                           
                           %td{ class: "px-6 py-4 whitespace-nowrap text-center text-2xl font-medium" }
-                            = link_to "+", new_transaction_path(:coin => portfolio.symbol), class:"text-indigo-600 hover:text-indigo-900"
+                            = link_to "+", new_transaction_path(:side => "BUY", :coin => portfolio.symbol), class:"text-indigo-600 hover:text-indigo-900"
