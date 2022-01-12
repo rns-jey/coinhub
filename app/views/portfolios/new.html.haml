@@ -3,9 +3,14 @@
 
 = form_with model: @portfolio do |form|
   %div
-    = form.label :name
+    = form.label :symbol
     %br/
-    = form.select :name, @cryptos.sort
+    = form.select :symbol, @cryptos.sort
+  
+  -# %div
+  -#   = form.label :amount
+  -#   %br/
+  -#   = form.text_field :amount, value: @amt
 
   %div
     = form.submit

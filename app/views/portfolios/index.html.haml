@@ -3,7 +3,7 @@
     %div{ class: "flex items-center justify-between h-16" }
       %h1{ class:"text-3xl font-bold text-gray-900" } My Portfolio
       %div{ class:"hidden md:block" }
-        = link_to "Add New Coin", new_portfolio_path, class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        = link_to "Add New Coin", new_portfolio_path(:amt => 100), class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 
 %main
   %div{ class:"max-w-7xl mx-auto py-6 sm:px-6 lg:px-8" }
@@ -34,51 +34,63 @@
                     PNL
                   
               %tbody{ class:"bg-white divide-y divide-gray-200" }
-                - if @cryptos
-                  - @cryptos.each do |crypto|
-                    %tr
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        %div{ class:"text-sm text-gray-900" }
-                          = crypto["cmc_rank"]
+                - if @portfolios
+                  - @portfolios.each do |portfolio|
+                    - @cryptos.each do |crypto|
+                      - if portfolio.symbol == crypto[1]["symbol"]
+                        %tr
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            %div{ class:"text-sm text-gray-900" }
+                              = crypto[1]["cmc_rank"]
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        %div{ class:"text-sm font-medium text-gray-900" }
-                          = crypto["name"]
-                        %div{ class:"text-sm text-gray-500" }
-                          = crypto["symbol"]
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            %div{ class:"text-sm font-medium text-gray-900" }
+                              = crypto[1]["name"]
+                            %div{ class:"text-sm text-gray-500" }
+                              = crypto[1]["symbol"]
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        %div{ class:"text-right text-sm text-gray-900" }
-                          = number_to_currency(crypto["quote"]["USD"]["price"])
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            %div{ class:"text-right text-sm text-gray-900" }
+                              = number_to_currency(crypto[1]["quote"]["USD"]["price"])
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        - if crypto["quote"]["USD"]["percent_change_1h"].positive? 
-                          %div{ class:"text-right text-sm text-green-800" }
-                            = number_to_percentage(crypto["quote"]["USD"]["percent_change_24h"])
-                        - else
-                          %div{ class:"text-right text-sm text-red-800" }
-                            = number_to_percentage(crypto["quote"]["USD"]["percent_change_1h"])
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            - if crypto[1]["quote"]["USD"]["percent_change_1h"].positive? 
+                              %div{ class:"text-right text-sm text-green-800" }
+                                = number_to_percentage(crypto[1]["quote"]["USD"]["percent_change_24h"])
+                            - else
+                              %div{ class:"text-right text-sm text-red-800" }
+                                = number_to_percentage(crypto[1]["quote"]["USD"]["percent_change_1h"])
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        - if crypto["quote"]["USD"]["percent_change_24h"].positive? 
-                          %div{ class:"text-right text-sm text-green-800" }
-                            = number_to_percentage(crypto["quote"]["USD"]["percent_change_24h"])
-                        - else
-                          %div{ class:"text-right text-sm text-red-800" }
-                            = number_to_percentage(crypto["quote"]["USD"]["percent_change_24h"])
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            - if crypto[1]["quote"]["USD"]["percent_change_24h"].positive? 
+                              %div{ class:"text-right text-sm text-green-800" }
+                                = number_to_percentage(crypto[1]["quote"]["USD"]["percent_change_24h"])
+                            - else
+                              %div{ class:"text-right text-sm text-red-800" }
+                                = number_to_percentage(crypto[1]["quote"]["USD"]["percent_change_24h"])
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        - if crypto["quote"]["USD"]["percent_change_7d"].positive? 
-                          %div{ class:"text-right text-sm text-green-800" }
-                            = number_to_percentage(crypto["quote"]["USD"]["percent_change_7d"])
-                        - else
-                          %div{ class:"text-right text-sm text-red-800" }
-                            = number_to_percentage(crypto["quote"]["USD"]["percent_change_7d"])
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            - if crypto[1]["quote"]["USD"]["percent_change_7d"].positive? 
+                              %div{ class:"text-right text-sm text-green-800" }
+                                = number_to_percentage(crypto[1]["quote"]["USD"]["percent_change_7d"])
+                            - else
+                              %div{ class:"text-right text-sm text-red-800" }
+                                = number_to_percentage(crypto[1]["quote"]["USD"]["percent_change_7d"])
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        %div{ class:"text-right text-sm text-gray-900" }
-                          = number_to_currency(crypto["quote"]["USD"]["volume_24h"])
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            %div{ class:"text-right text-sm text-gray-900" }
+                              = number_to_currency(crypto[1]["quote"]["USD"]["market_cap"])
 
-                      %td{ class:"px-6 py-4 whitespace-nowrap" }
-                        %div{ class:"text-right text-sm text-gray-900" }
-                          = number_to_currency(crypto["quote"]["USD"]["market_cap"])
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            %div{ class:"text-right text-sm font-medium text-gray-900" }
+                              = portfolio.amount
+                            %div{ class:"text-right text-sm text-gray-500" }
+                              = number_to_currency(portfolio.amount * crypto[1]["quote"]["USD"]["price"])
+
+                          %td{ class:"px-6 py-4 whitespace-nowrap" }
+                            - if crypto[1]["quote"]["USD"]["percent_change_24h"].positive? 
+                              %div{ class:"text-right text-sm text-green-800" }
+                                = number_to_currency((crypto[1]["quote"]["USD"]["percent_change_24h"] / 100) * (portfolio.amount * crypto[1]["quote"]["USD"]["price"]))
+                            - else
+                              %div{ class:"text-right text-sm text-red-800" }
+                                = number_to_currency((crypto[1]["quote"]["USD"]["percent_change_24h"] / 100) * (portfolio.amount * crypto[1]["quote"]["USD"]["price"]))
