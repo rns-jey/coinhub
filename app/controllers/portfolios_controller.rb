@@ -8,7 +8,7 @@ class PortfoliosController < ApplicationController
   def new
     @portfolio = Portfolio.new
     #@amt = params[:amt]
-    @cryptos = Cryptocurrency.pluck(:symbol) - Portfolio.pluck(:symbol)
+    @cryptos = Cryptocurrency.pluck(:name, :symbol) - Portfolio.pluck(:name, :symbol)
   end
 
   def create
