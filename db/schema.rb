@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_112608) do
+ActiveRecord::Schema.define(version: 2022_01_12_161902) do
 
   create_table "cryptocurrencies", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,21 @@ ActiveRecord::Schema.define(version: 2022_01_12_112608) do
     t.string "slug"
     t.float "amount"
     t.string "status"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "kind"
+    t.string "symbol"
+    t.float "unit_price"
+    t.float "amount"
+    t.float "total_price"
+    t.float "fee"
+    t.float "final_price"
+    t.string "currency"
+    t.float "status"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
