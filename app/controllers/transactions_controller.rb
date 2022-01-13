@@ -15,9 +15,10 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @crypto = Portfolio.where(symbol: @transaction.symbol).first
     @crypto.amount = @transaction.kind == "BUY" ? @crypto.amount + @transaction.amount : @crypto.amount - @transaction.amount
-    @crypto.save if @transaction.save
+    @transaction.status = "Fulfilled"
 
     if @transaction.save
+      @crypto.save
       redirect_to portfolios_path
     else
       render :new, status: :unprocessable_entity
