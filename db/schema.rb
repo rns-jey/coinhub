@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 2022_01_12_161902) do
   create_table "transactions", force: :cascade do |t|
     t.string "kind"
     t.string "symbol"
-    t.float "unit_price"
+    t.decimal "unit_price"
     t.decimal "amount", precision: 15, scale: 10
-    t.float "total_price"
-    t.float "fee"
-    t.float "final_price"
+    t.decimal "total_price"
+    t.decimal "fee"
+    t.decimal "final_price"
     t.string "currency"
     t.string "status"
     t.integer "user_id"
