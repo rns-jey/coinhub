@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_161902) do
     t.float "fee"
     t.float "final_price"
     t.string "currency"
-    t.float "status"
+    t.string "status"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -9,7 +9,7 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.float :fee
       t.float :final_price
       t.string :currency
-      t.float :status
+      t.string :status
       t.integer :user_id
 
       t.timestamps
