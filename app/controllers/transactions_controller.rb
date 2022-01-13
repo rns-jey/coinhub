@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
   def create
     @transaction = Transaction.new(transaction_params)
     @crypto = Portfolio.where(symbol: @transaction.symbol).first
-    @crypto.amount = @transaction.kind == "BUY" ? @crypto.amount + @transaction.amount : @crypto.amount - @transaction.amount
+    @crypto.amount = @transaction.kind == "BUY" ? @crypto.amount + @transaction.amount : (@crypto.amount - @transaction.amount).round(10)
     @transaction.status = "Fulfilled"
 
     if @transaction.save

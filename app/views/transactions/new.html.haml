@@ -37,10 +37,8 @@
             %div{ class: "text-left w-1/2 overflow-hidden" }
               = form.label :total_price, "Spend", :class => "block text-sm font-medium text-gray-700"
             
-            %div{ class: "text-right w-1/2 overflow-hidden" }
-              - if @transaction_type == "BUY"
-                = form.label :cash_balance, "Balance: 1000 PHP", :class => "block text-sm font-medium text-gray-700"
-              - else
+            - if @transaction_type == "SELL"
+              %div{ class: "text-right w-1/2 overflow-hidden" }
                 = form.label :crypto_balance, "Balance: 2000 #{@crypto.symbol}", :class => "block text-sm font-medium text-gray-700"
           
           %div{ class: "mt-1 relative rounded-md shadow-sm" }
@@ -79,10 +77,16 @@
           %dl
             %div{ class: "bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
               %dt{ class: "text-sm font-medium text-gray-500" }
-                Pay with
+                - if @transaction_type == "BUY"
+                  Pay with
+                - else
+                  Receive with
               
               %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
-                Cash balance: 1000 PHP
+                - if @transaction_type == "BUY"
+                  Cash balance: 1000 PHP
+                - else
+                  Cash balance
           
             %div{ class: "bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
               %dt{ class: "text-sm font-medium text-gray-500" }
@@ -115,13 +119,14 @@
 
   function into_units() {
     if (document.activeElement == tPrice && tPrice.value) {
-      inUnits.value = (tPrice.value / cryptoPrice.value).toFixed(8)
+      inUnits.value = (tPrice.value / cryptoPrice.value).toFixed(10)
     }
     else if (document.activeElement == inUnits && inUnits.value) {
       tPrice.value = (inUnits.value * cryptoPrice.value).toFixed(2)
     }
     else {
       inUnits.value = ""
+      tPrice.value = ""
     }
   }
 
