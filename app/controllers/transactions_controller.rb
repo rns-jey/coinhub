@@ -1,4 +1,9 @@
 class TransactionsController < ApplicationController
+  def index
+    @transactions = Transaction.all
+    @zone = Time.local(2000, 1, 1).zone
+  end
+
   def new
     @transaction = Transaction.new
     @crypto = Portfolio.where(symbol: params[:coin]).first
