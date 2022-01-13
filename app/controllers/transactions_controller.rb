@@ -1,7 +1,6 @@
 class TransactionsController < ApplicationController
   def index
-    @transactions = Transaction.all
-    @zone = Time.local(2000, 1, 1).zone
+    @transactions = current_user.transactions
   end
 
   def new
