@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_161902) do
     t.string "name"
     t.string "symbol"
     t.string "slug"
-    t.float "amount"
+    t.decimal "amount", precision: 15, scale: 10
     t.string "status"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_01_12_161902) do
     t.string "kind"
     t.string "symbol"
     t.float "unit_price"
-    t.float "amount"
+    t.decimal "amount", precision: 15, scale: 10
     t.float "total_price"
     t.float "fee"
     t.float "final_price"

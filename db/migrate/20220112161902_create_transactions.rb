@@ -4,7 +4,7 @@ class CreateTransactions < ActiveRecord::Migration[6.0]
       t.string :kind
       t.string :symbol
       t.float :unit_price
-      t.float :amount
+      t.decimal :amount, :precision => 15, :scale => 10
       t.float :total_price
       t.float :fee
       t.float :final_price
