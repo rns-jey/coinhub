@@ -1,4 +1,6 @@
 class PortfoliosController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @portfolios = current_user.portfolios
     @symbols = current_user.portfolios.pluck(:symbol).join(",")
