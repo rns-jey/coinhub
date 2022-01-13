@@ -20,9 +20,9 @@
 
       = form_with model: @transaction do |form|
         = form.text_field :kind, value: @transaction_type
-        = form.text_field :unit_price, value: @price
-        = form.text_field :fee
-        = form.text_field :final_price
+        = form.text_field :unit_price, id: "crypto_price", value: (@price * 52).round(2)
+        = form.text_field :fee, id: "fee_field"
+        = form.text_field :final_price, id: "final_price_field"
         = form.text_field :user_id, value: current_user.id
 
         %div
@@ -30,7 +30,7 @@
           
           %div{ class: "mt-1 relative rounded-md shadow-sm" }
 
-            = form.text_field :total_price, class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", placeholder: "0.00"
+            = form.text_field :total_price, id: "total_price", placeholder: '970.00 - 720000.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute()"
             
             %div{ class: "absolute inset-y-0 right-0 flex items-center" }
               = form.label :currency, :class => "sr-only"
@@ -41,7 +41,7 @@
 
           %div{ class: "mt-1 relative rounded-md shadow-sm" }
 
-            = form.text_field :amount, class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", placeholder: "0.00"
+            = form.text_field :amount, id: "in_units", placeholder: '0.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute()"
             
             %div{ class: "absolute inset-y-0 right-0 flex items-center" }
               = form.label :symbol, :class => "sr-only"
@@ -61,21 +61,63 @@
                 Price
               
               %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
-                1 BTC = 26760.602 PHP
+                1 BTC = #{(@price * 52).round(2)} PHP
 
             %div{ class: "bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
               %dt{ class: "text-sm font-medium text-gray-500" }
                 Fees
               
               %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
-                20.00 PHP
+                = form.label :fee, "0.00", :id => "fee_label"
             
             %div{ class: "bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" }
               %dt{ class: "text-sm font-medium text-gray-500" }
                 Total
               
               %dd{ class: "mt-1 text-right text-sm text-gray-900 sm:mt-0 sm:col-span-2" }
-                1000 PHP
+                = form.label :fee, "0.00", :id => "final_price_label"
       
         = button_tag(type: "submit", class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500", id: 'validForm') do
           Confirm
+
+:javascript
+  let tPrice = document.getElementById('total_price')
+  let cryptoPrice = document.getElementById('crypto_price')
+  let inUnits = document.getElementById('in_units')
+
+  function into_units() {
+    if (document.activeElement == tPrice && tPrice.value) {
+      inUnits.value = (tPrice.value / cryptoPrice.value).toFixed(8)
+    }
+    else if (document.activeElement == inUnits && inUnits.value) {
+      tPrice.value = (inUnits.value * cryptoPrice.value).toFixed(2)
+    }
+    else {
+      inUnits.value = ""
+    }
+  }
+
+  function calculate() {
+    if (tPrice.value) {final_price_label
+      let transaction_fee = Number(Number(tPrice.value) * 0.02).toFixed(2)
+      let final_price = Number(Number(tPrice.value) + Number(transaction_fee)).toFixed(2)
+
+      document.getElementById('fee_field').value = Number(transaction_fee).toFixed(2)
+      document.getElementById('fee_label').innerHTML = Number(transaction_fee).toFixed(2)
+
+      document.getElementById('final_price_field').value = Number(final_price).toFixed(2)
+      document.getElementById('final_price_label').innerHTML = Number(final_price).toFixed(2)
+    }
+    else {
+      document.getElementById('fee_field').value = ""
+      document.getElementById('fee_label').innerHTML = "0.00"
+
+      document.getElementById('final_price_field').value = ""
+      document.getElementById('final_price_label').innerHTML = "0.00"
+    }
+  }
+
+  function compute() {
+    into_units()
+    calculate()
+  }
