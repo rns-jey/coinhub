@@ -30,6 +30,11 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :production do
+  gem 'pg'
+  gem 'rails_12factor', '~> 0.0.3'
+end
+
 group :test do
   gem 'rspec-rails'
   gem 'database_rewinder'
