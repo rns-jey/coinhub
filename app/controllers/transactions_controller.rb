@@ -6,14 +6,14 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = Transaction.new
-    @crypto = Portfolio.where(symbol: params[:coin]).first
+    @crypto = current_user.portfolios.where(symbol: params[:coin]).first
     @transaction_type = params[:side]
     @price = CoinMarket::Client.quote(@crypto.symbol)[:data]["data"][@crypto.symbol]["quote"]["USD"]["price"]
   end
 
   def create
     @transaction = Transaction.new(transaction_params)
-    @crypto = Portfolio.where(symbol: @transaction.symbol).first
+    @crypto = current_user.portfolios.where(symbol: @transaction.symbol).first
     @crypto.amount = @transaction.kind == "BUY" ? @crypto.amount + @transaction.amount : @crypto.amount - @transaction.amount
     @transaction.status = "Fulfilled"
 

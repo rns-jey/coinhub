@@ -36,6 +36,7 @@
                     Buy/Sell
                   
               %tbody{ class:"bg-white divide-y divide-gray-200" }
+                = @symbols
                 - if @portfolios
                   - @portfolios.each do |portfolio|
                     - @cryptos.each do |crypto|

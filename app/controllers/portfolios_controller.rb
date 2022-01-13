@@ -1,14 +1,13 @@
 class PortfoliosController < ApplicationController
   def index
-    @portfolios = Portfolio.all
-    @symbols = Portfolio.pluck(:symbol).join(",")
+    @portfolios = current_user.portfolios
+    @symbols = current_user.portfolios.pluck(:symbol).join(",")
     @cryptos = CoinMarket::Client.quote(@symbols)[:data]["data"]
   end
 
   def new
     @portfolio = Portfolio.new
-    #@amt = params[:amt]
-    @cryptos = Cryptocurrency.pluck(:name, :symbol) - Portfolio.pluck(:name, :symbol)
+    @cryptos = Cryptocurrency.pluck(:name, :symbol) - current_user.portfolios.pluck(:name, :symbol)
   end
 
   def create
