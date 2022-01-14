@@ -1,18 +1,25 @@
 Rails.application.routes.draw do
-  devise_for :admins
-  devise_for :users
+  devise_for :admins, path: 'admins', controller: {
+    sessions: 'admins/sessions',
+    registrations: 'admins/registrations'
+  }
 
-  devise_scope :user do
-    authenticated :user do
-      namespace :users do
+  devise_for :users, path: 'users', controller: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+
+  devise_scope :admin do
+    authenticated :admin do
+      namespace :admin do
         get 'dashboard/index', as: :authenticated_root
       end
     end
   end
 
-  devise_scope :admin do
-    authenticated :admin do
-      namespace :admin do
+  devise_scope :user do
+    authenticated :user do
+      namespace :users do
         get 'dashboard/index', as: :authenticated_root
       end
     end
