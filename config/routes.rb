@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/login'
-  get 'sessions/welcome'
-  get 'sessions/new'
-  get 'sessions/create'
-  get 'sessions/destroy'
-  resources :admins
+  resources :admins, only: [:new, :create]
+
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  get 'welcome', to: 'sessions#welcome'
+
   devise_for :users
   root 'home#index'
   resources :portfolios
