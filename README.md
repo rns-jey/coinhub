@@ -1,58 +1,103 @@
-# Hi there 👋
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/rns-jey/coinhub">
+    <img src="app/assets/images/coinhub.svg" alt="Logo" width="80" height="80">
+  </a>
 
-This repo serves as the main repo for our Rails Projects. 
+  <h3 align="center">Coinhub</h3>
 
+  <p align="center">
+    An awesome cryptocurrency trading app!
+    <br />
+    <a href="https://github.com/rns-jey/coinhub"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/rns-jey/coinhub">View Demo</a>
+  </p>
+</div>
 
-#### Version
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-```
-  Ruby 2.7.2
-  Rails 6.0.3.4
-  NodeJS 12.18.3
-  Yarn 1.22.4
-```
+<!-- ABOUT THE PROJECT -->
 
-#### Installation
+## About The Project
 
-Fork this repo:
-![image](https://user-images.githubusercontent.com/9253881/111437757-6c527f00-873e-11eb-8d0a-862e4158f4ab.png)
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Then, clone your forked repo to your machine
-```
-  $ git clone git@github.com:<username>/rails-base-project.git <name of your app>
-  $ cd <name of your app>
-```
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-#### Setup
+### Built With
 
-```
-  $ bundle install
-  $ rake db:setup
-```
+- [Ruby](https://www.ruby-lang.org/)
+- [Ruby](https://rubyonrails.org/)
+- [NodeJs](https://nodejs.org/)
+- [Yarn](https://classic.yarnpkg.com/en/)
+- [Tailwind](https://tailwindcss.com/)
 
-#### Starting the application
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-```
-  $ rails server
-```
+<!-- GETTING STARTED -->
 
-#### How to run the test suite
+## Getting Started
 
-```
-  $ rspec
-```
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
 
-#### How to run the Ruby Linter
+### Prerequisites
 
-```
-  $ rubocop
-```
+This is an example of how to list things you need to use the software and how to install them.
 
-#### How to enable Github Workflow
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-<img width="906" alt="Screen Shot 2021-03-23 at 10 10 52 PM" src="https://user-images.githubusercontent.com/9253881/112160501-2fe2bf80-8c25-11eb-8e2b-b9508711ec70.png">
+### Installation
 
-<img width="1244" alt="Screen Shot 2021-03-23 at 10 11 12 PM" src="https://user-images.githubusercontent.com/9253881/112160530-36713700-8c25-11eb-9f00-d69a3a36343f.png">
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
+1. Get a free API Key at [https://example.com](https://example.com)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Enter your API in `config.js`
+   ```js
+   const API_KEY = "ENTER YOUR API";
+   ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- CONTACT -->
+
+## Contact
+
+Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+
+Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
