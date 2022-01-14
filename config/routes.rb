@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     authenticated :admin do
-      namespace :admin do
+      namespace :admins do
         get 'dashboard/index', as: :authenticated_root
       end
     end
