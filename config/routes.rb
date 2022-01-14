@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  namespace :admins do
-    get 'dashboard/index'
-  end
-
-  namespace :users do
-    get 'dashboard/index'
-  end
-  
   devise_for :admins
   devise_for :users
+
+  devise_scope :user do
+    authenticated :user do
+      namespace :users do
+        get 'dashboard/index', as: :authenticated_root
+      end
+    end
+  end
+
+  devise_scope :admin do
+    authenticated :admin do
+      namespace :admin do
+        get 'dashboard/index', as: :authenticated_root
+      end
+    end
+  end
 
   #get '/admins/approvals', to: 'admins#approvals'
   
