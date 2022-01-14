@@ -24,7 +24,7 @@
           <% elsif !admin_signed_in? %>
             <%= link_to "Sign In", new_user_session_path, class:"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
 
-            <%# <%= link_to "Sign Up", new_user_registration_path, class:"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %> %>
+            <%# <%= link_to "Sign Up", new_user_registration_path, class:"text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
           <% end %>
 
           <% if admin_signed_in? %>
