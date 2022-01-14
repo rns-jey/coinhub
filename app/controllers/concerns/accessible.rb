@@ -15,3 +15,4 @@ module Accessible
       redirect_to(users_authenticated_root_path) and return
     end
   end
+end
