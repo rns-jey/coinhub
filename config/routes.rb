@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :admins do
+    get 'dashboard/index'
+  end
   namespace :users do
     get 'dashboard/index'
   end
