@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  namespace :users do
+    get 'dashboard/index'
+  end
   devise_for :admins
   devise_for :users
   get '/admins/approvals', to: 'admins#approvals'
