@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins, :path => 'admins'
-  devise_for :users, :path => 'users'
+  get '/admins/approvals', to: 'admins#approvals'
   
   root 'home#index'
   resources :portfolios
