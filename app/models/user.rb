@@ -4,6 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-         has_many :portfolios
-         has_many :transactions
+  has_many :portfolios
+  has_many :transactions
+
+  def active_for_authentication? 
+    super && approved? 
+  end 
+    
+  def inactive_message 
+    approved? ? super : :not_approved
+  end
 end
