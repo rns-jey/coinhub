@@ -12,23 +12,29 @@
               %thead{ class:"bg-gray-50" }
                 %tr
                   %th{ scope:"col", class:"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }
+                    First name
+                  %th{ scope:"col", class:"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }
+                    Last name
+                  %th{ scope:"col", class:"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }
                     Email
-                  %th{ scope:"col", class:"px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }
-                    Approved
-                  %th{ scope:"col", class:"px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider" }
-                    Edit
+                  %th{ scope:"col", class:"px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" }
+                    Action
 
               %tbody{ class:"bg-white divide-y divide-gray-200" }
                 - @users.each do |user|
                   %tr
                     %td{ class:"px-6 py-4 whitespace-nowrap" }
-                      %div{ class:"text-sm text-gray-900" }
-                        = link_to user.email, admins_user_path(:id => user.id)
+                      %div{ class:"text-sm text-left text-gray-900" }
+                        = user.firstname
+                    
+                    %td{ class:"px-6 py-4 whitespace-nowrap" }
+                      %div{ class:"text-sm text-left text-gray-900" }
+                        = user.lastname
 
                     %td{ class:"px-6 py-4 whitespace-nowrap" }
-                      %div{ class:"text-sm text-center text-gray-900" }
-                        = user.approved
+                      %div{ class:"text-sm text-left text-gray-900" }
+                        = user.email
 
                     %td{ class:"px-6 py-4 whitespace-nowrap" }
-                      %div{ class:"text-sm text-center text-gray-900" }
-                        Edit
+                      %div{ class:"text-sm text-left text-gray-900" }
+                        = link_to "Approve",  admins_approvals_path(id: user.id, approve: true), method: :put
