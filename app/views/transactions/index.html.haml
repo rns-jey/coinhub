@@ -51,7 +51,7 @@
 
                       %td{ class:"px-6 py-4 whitespace-nowrap" }
                         %div{ class:"text-sm text-right text-gray-900" }
-                          = number_to_currency(transaction.unit_price)
+                          = number_to_currency(transaction.unit_price, unit: "")
                       
                       %td{ class:"px-6 py-4 whitespace-nowrap" }
                         %div{ class:"text-sm text-right text-gray-900" }
@@ -59,15 +59,15 @@
 
                       %td{ class:"px-6 py-4 whitespace-nowrap" }
                         %div{ class:"text-sm text-right text-gray-900" }
-                          = number_to_currency(transaction.total_price)
+                          = number_to_currency(transaction.total_price, unit: "")
 
                       %td{ class:"px-6 py-4 whitespace-nowrap" }
                         %div{ class:"text-sm text-right text-gray-900" }
-                          = number_to_currency(transaction.fee)
+                          = number_to_currency(transaction.fee, unit: "")
 
                       %td{ class:"px-6 py-4 whitespace-nowrap" }
                         %div{ class:"text-sm text-right text-gray-900" }
-                          = number_to_currency(transaction.final_price)
+                          = number_to_currency(transaction.final_price, unit: "")
 
                       %td{ class:"px-6 py-4 whitespace-nowrap" }
                         %div{ class:"text-sm text-center text-gray-900" }

@@ -44,13 +44,13 @@
           %div{ class: "mt-1 relative rounded-md shadow-sm" }
 
             - if @transaction_type == "BUY"
-              = form.text_field :total_price, id: "total_price", placeholder: '970.00 - 720000.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute()"
+              = form.text_field :total_price, id: "total_price", placeholder: '970.00 - 720000.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute('BUY')"
               
               %div{ class: "absolute inset-y-0 right-0 flex items-center" }
                 = form.label :currency, :class => "sr-only"
                 = form.select(:currency, ["PHP"], {}, { :class => "focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md" })
             - else
-              = form.text_field :amount, id: "in_units", placeholder: '0.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute()"
+              = form.text_field :amount, id: "in_units", placeholder: '0.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute('SELL')"
               
               %div{ class: "absolute inset-y-0 right-0 flex items-center" }
                 = form.label :symbol, :class => "sr-only"
@@ -61,13 +61,13 @@
 
           %div{ class: "mt-1 relative rounded-md shadow-sm" }
             - if @transaction_type == "BUY"
-              = form.text_field :amount, id: "in_units", placeholder: '0.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute()"
+              = form.text_field :amount, id: "in_units", placeholder: '0.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute('BUY')"
               
               %div{ class: "absolute inset-y-0 right-0 flex items-center" }
                 = form.label :symbol, :class => "sr-only"
                 = form.select(:symbol, ["#{@crypto.symbol}"], {}, { :class => "focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md" })
             - else
-              = form.text_field :total_price, id: "total_price", placeholder: '970.00 - 720000.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute()"
+              = form.text_field :total_price, id: "total_price", placeholder: '970.00 - 720000.00', autocomplete: "off", class: "focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md", :onkeyup => "compute('SELL')"
               
               %div{ class: "absolute inset-y-0 right-0 flex items-center" }
                 = form.label :currency, :class => "sr-only"
@@ -130,10 +130,18 @@
     }
   }
 
-  function calculate() {
-    if (tPrice.value) {final_price_label
-      let transaction_fee = Number(Number(tPrice.value) * 0.02).toFixed(2)
-      let final_price = Number(Number(tPrice.value) + Number(transaction_fee)).toFixed(2)
+  function calculate(side) {
+    if (tPrice.value) {
+      if (side == "BUY") {
+        var transaction_fee = Number(Number(tPrice.value) * 0.02).toFixed(2)
+        var final_price = Number(Number(tPrice.value) + Number(transaction_fee)).toFixed(2)
+      }
+      else {
+        var transaction_fee = Number(Number(tPrice.value) * 0.02).toFixed(2)
+        var final_price = Number(Number(tPrice.value) - Number(transaction_fee)).toFixed(2)
+      }
+
+      console.log(side)
 
       document.getElementById('fee_field').value = Number(transaction_fee).toFixed(2)
       document.getElementById('fee_label').innerHTML = Number(transaction_fee).toFixed(2)
@@ -150,7 +158,7 @@
     }
   }
 
-  function compute() {
+  function compute(side) {
     into_units()
-    calculate()
+    calculate(side)
   }
